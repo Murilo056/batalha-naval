@@ -14,7 +14,7 @@ Este projeto implementa o clássico jogo **Batalha Naval** com interface gráfic
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/seu-usuario/batalha-naval.git
+   git clone https://github.com/Murilo056/batalha-naval.git
    cd batalha-naval
    ```
 
