@@ -3,9 +3,6 @@ from tkinter import messagebox
 from abc import ABC, abstractmethod
 import random
 
-# Explicação pro professor: "Importo as bibliotecas necessárias: Tkinter para a interface gráfica, ABC para criar classes abstratas e random para a IA jogar aleatoriamente."
-
-# Classe Posicao
 class Posicao:
     def __init__(self, linha, coluna):
         self._linha = linha
@@ -22,9 +19,6 @@ class Posicao:
     def __eq__(self, other):
         return self._linha == other.linha and self._coluna == other.coluna
 
-# Explicação pro professor: "A classe Posicao é usada para guardar a linha e coluna de cada célula do tabuleiro e facilita a comparação de posições."
-
-# Classe abstrata Navio
 class Navio(ABC):
     def __init__(self, posicoes):
         self._posicoes = posicoes
@@ -50,8 +44,6 @@ class Navio(ABC):
 
     def esta_afundado(self):
         return len(self._atingidas) == len(self._posicoes)
-
-# Explicação pro professor: "Criei uma classe abstrata Navio, com métodos que devem ser implementados nas subclasses. Ela guarda as posições e verifica se foi atingido ou afundado."
 
 class PortaAvioes(Navio):
     def get_nome(self):
@@ -88,9 +80,6 @@ class Destroyer(Navio):
     def get_tamanho(self):
         return 1
 
-# Explicação pro professor: "Essas subclasses de Navio representam os diferentes tipos do jogo, cada uma com seu tamanho específico."
-
-# Classe Tabuleiro
 class Tabuleiro:
     def __init__(self):
         self._navios = []
@@ -118,9 +107,6 @@ class Tabuleiro:
                     return True
         return False
 
-# Explicação pro professor: "O Tabuleiro gerencia os navios e os ataques. Ele também verifica se todos os navios foram afundados e se uma posição já está ocupada."
-
-# Classe principal do jogo com interface Tkinter
 class BatalhaNavalGUI:
     def __init__(self, master):
         self.master = master
@@ -133,7 +119,7 @@ class BatalhaNavalGUI:
         self.botoes_ia = []
         self.navios_classes = [PortaAvioes, Encouracado, Cruzador, Submarino, Destroyer]
         self.navio_index = 0
-        self.direcao = 'H'  # H ou V
+        self.direcao = 'H'
         self.jogando = False
         self.inicializar_interface()
         self.posicionar_navios_ia()
@@ -160,8 +146,6 @@ class BatalhaNavalGUI:
             self.botoes_ia.append(linha_i)
 
         self.master.bind('<space>', self.alternar_direcao)
-
-# Explicação pro professor: "Aqui eu monto os tabuleiros com botões. Um é para o jogador e outro para atacar a IA. A tecla espaço alterna a direção do navio entre horizontal e vertical."
 
     def alternar_direcao(self, event):
         self.direcao = 'V' if self.direcao == 'H' else 'H'
@@ -199,8 +183,6 @@ class BatalhaNavalGUI:
             self.jogando = True
             self.label_info.config(text="Ataque o tabuleiro da direita!")
 
-# Explicação pro professor: "Essa função permite posicionar os navios do jogador manualmente clicando nas células. A cada navio colocado, ele avança para o próximo da lista."
-
     def posicionar_navios_ia(self):
         for classe_navio in self.navios_classes:
             colocado = False
@@ -221,8 +203,6 @@ class BatalhaNavalGUI:
                     self.tabuleiro_ia.adicionar_navio(navio)
                     colocado = True
 
-# Explicação pro professor: "Essa parte posiciona os navios da IA automaticamente, usando posições e direções aleatórias, e verifica se não estão sobrepostos."
-
     def atacar_ia(self, linha, coluna):
         if not self.jogando:
             return
@@ -240,8 +220,6 @@ class BatalhaNavalGUI:
             return
 
         self.resposta_ia()
-
-# Explicação pro professor: "Essa função trata o ataque do jogador. Se acertar, marca com vermelho. Se errar, azul. Depois chama o turno da IA."
 
     def resposta_ia(self):
         while True:
@@ -261,12 +239,7 @@ class BatalhaNavalGUI:
             messagebox.showinfo("Derrota!", "Você perdeu para a IA.")
             self.jogando = False
 
-# Explicação pro professor: "A IA ataca de forma aleatória, evitando repetir posições. Se acertar, pinta de vermelho; se errar, azul."
-
-# Executar o jogo
 if __name__ == "__main__":
     root = tk.Tk()
     app = BatalhaNavalGUI(root)
     root.mainloop()
-
-# Explicação pro professor: "Esse bloco final inicia o jogo criando a janela principal com a interface gráfica."
